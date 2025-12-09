@@ -5,27 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RPM_13"
         mc:Ignorable="d"
-        Title="Практическая 13" Height="450" Width="800" MinHeight="260" MinWidth="520">
+        Title="Практическая 13" Height="450" Width="800" MinHeight="270" MinWidth="520">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0">
             <MenuItem Header="Файл">
-                
+                <MenuItem x:Name="btn_Save" Header="Сохранить" Click="btn_Save_Click" />
+                <MenuItem x:Name="btn_Open" Header="Открыть" Click="btn_Open_Click"/>
+                <MenuItem x:Name="btn_Exit" Header="Выход" Click="btn_Exit_Click" />
             </MenuItem>
 
             <MenuItem Header="Инфо">
-                
+                <MenuItem x:Name="btn_ProgramInfo" Header="О программе" Click="btn_ProgramInfo_Click" />
+                <MenuItem x:Name="btn_DevInfo" Header="О разработчике" Click="btn_DevInfo_Click" />
             </MenuItem>
         </Menu>
 
         <ToolBar Grid.Row="1">
-            
+            <Button x:Name="btn_Fill" Content="Заполнить случайными значениями" Click="btn_Fill_Click" />
+            <Separator/>
+            <Button x:Name="btn_SetNull" Content="Заполнить нулями" Click="btn_SetNull_Click"/>
         </ToolBar>
 
         <Grid Grid.Row="2" Margin="5">
@@ -41,11 +46,11 @@
                         <RowDefinition Height="35"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid x:Name="dg" Grid.Row="0" CanUserAddRows="False" PreviewKeyDown="dg_PreviewKeyDown" PreviewTextInput="dg_PreviewTextInput" />
+                    <DataGrid x:Name="dg" Grid.Row="0" CanUserAddRows="False" PreviewKeyDown="dg_PreviewKeyDown" PreviewTextInput="dg_PreviewTextInput" CurrentCellChanged="dg_CurrentCellChanged" CellEditEnding="dg_CellEditEnding"/>
 
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Label Content="Строк:" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tb_rows" VerticalAlignment="Center" Width="60" PreviewKeyDown="tb_PreviewKeyDown_NumberOnly"/>
+                        <TextBox x:Name="tb_rows" VerticalAlignment="Center" Width="60" PreviewKeyDown="tb_PreviewKeyDown_NumberOnly" TextChanged="tb_rows_TextChanged" />
                         
                         <Label Content="Столбцов:" VerticalAlignment="Center" Margin="10,0,0,0"/>
                         <TextBox x:Name="tb_columns" VerticalAlignment="Center" Width="60" PreviewKeyDown="tb_PreviewKeyDown_NumberOnly"/>
@@ -53,15 +58,21 @@
                         <Button x:Name="btn_SetSize" Content="Установить" VerticalAlignment="Center" Margin="20,0,0,0" Click="btn_SetSize_Click" />
                     </StackPanel>
                 </Grid>
+
+                <GroupBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="btn_NoIdeas" Header="Уно проблемо" Click="btn_NoIdeas_Click" />
+                    </ContextMenu>
+                </GroupBox.ContextMenu>
             </GroupBox>
 
             <GroupBox Grid.Column="1" Header="Результат" BorderBrush="Black">
                 <StackPanel>
                     <Label Content="Номер столбца:" HorizontalAlignment="Center"/>
-                    <TextBox x:Name="tb_ColumnRes" Width="80" IsReadOnly="True"/>
+                    <TextBox x:Name="tb_ColumnRes" Width="30" IsReadOnly="True"/>
 
                     <Label Content="Значение:" HorizontalAlignment="Center"/>
-                    <TextBox x:Name="tb_ValueRes" Width="60" IsReadOnly="True"/>
+                    <TextBox x:Name="tb_ValueRes" Width="35" IsReadOnly="True"/>
 
                     <Button x:Name="btn_Calculate" Content="Рассчитать" HorizontalAlignment="Center" Margin="15" Click="btn_Calculate_Click"/>
                 </StackPanel>
@@ -69,9 +80,9 @@
         </Grid>
         
         <StatusBar Grid.Row="3">
-            <TextBlock Text="Размер:"/>
+            <TextBlock x:Name="tb_size" Text="Размер:"/>
             <Separator/>
-            <TextBlock Text="Номер ячейки:"/>
+            <TextBlock x:Name="tb_cell" Text="Ячейка не выбрана"/>
         </StatusBar>
     </Grid>
 </Window>
